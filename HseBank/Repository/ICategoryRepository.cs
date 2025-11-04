@@ -1,5 +1,5 @@
 namespace HseBank.Repository;
-
+using HseBank.BaseClasses;
 public interface ICategoryRepository
 {
     public void Add(int id, Category account);

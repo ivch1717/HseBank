@@ -1,6 +1,6 @@
 using HseBank.TypeOperation;
 
-namespace HseBank;
+namespace HseBank.BaseClasses;
 
 public class Category
 {

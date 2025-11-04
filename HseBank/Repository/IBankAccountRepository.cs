@@ -1,3 +1,4 @@
+using HseBank.BaseClasses;
 namespace HseBank.service;
 
 public interface IBankAccountRepository

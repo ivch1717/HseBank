@@ -1,3 +1,4 @@
+using HseBank.BaseClasses;
 namespace HseBank.Factories;
 
 public interface IBankAccountFactory

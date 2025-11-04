@@ -1,16 +1,31 @@
 using HseBank.Factories;
 using HseBank.Repository;
 using HseBank.service;
+using HseBank.BaseClasses;
+using HseBank.TypeOperation;
+
 namespace HseBank.Facades;
 
 public class OperationFacade : IOperationFacade
 {
     ICategoryRepository  _categoryRepository;
     IBankAccountRepository   _accountRepository;
-    private IOperationRepository _operationRepository;
+    IOperationRepository _operationRepository;
     IOperationFactory _factory;
+    IFactoryTypeResolver  _factoryTypeResolver;
+
+    public OperationFacade(ICategoryRepository categoryRepository, IBankAccountRepository accountRepository,
+        IOperationRepository operationRepository, IOperationFactory factory, IFactoryTypeResolver factoryTypeResolver)
+    {
+        _categoryRepository = categoryRepository;
+        _accountRepository = accountRepository;
+        _operationRepository = operationRepository;
+        _factory = factory;
+        _factoryTypeResolver = factoryTypeResolver;
+        
+    }
     
-    public void AddOperation(int bankAccountId, int amount, DateTime date, int categoryId, string description = "")
+    public void AddOperation(int bankAccountId, int amount, int categoryId, string description = "")
     {
         int id = _operationRepository.GetRep().Keys.Max() + 1;
         if (_accountRepository.GetRep().Keys.Contains(bankAccountId))
@@ -22,8 +37,11 @@ public class OperationFacade : IOperationFacade
         {
             throw new ArgumentException("id категории не корректный");
         }
+        DateTime date = DateTime.Now;
+        IObserver observer = _accountRepository.GetRep()[bankAccountId];
         _operationRepository.Add(id, _factory.Create(id, 
-            _categoryRepository.GetRep()[categoryId].Type, bankAccountId, amount, date, categoryId, description));
+            _categoryRepository.GetRep()[categoryId].Type, bankAccountId, amount, date, categoryId, observer, description));
+        _operationRepository.GetRep()[id].Notify();
     }
 
     public void RemoveOperation(int id)
@@ -32,6 +50,8 @@ public class OperationFacade : IOperationFacade
         {
             throw new ArgumentException("id не корректный");
         }
+        _operationRepository.GetRep()[id].Type = _factoryTypeResolver.GetFactory(_operationRepository.GetRep()[id].Type.Name, true).Create();
+        _operationRepository.GetRep()[id].Notify();
         _operationRepository.Remove(id);
     }
 

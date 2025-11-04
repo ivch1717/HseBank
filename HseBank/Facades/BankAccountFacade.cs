@@ -1,4 +1,5 @@
 using HseBank.Factories;
+using HseBank.Repository;
 using HseBank.service;
 
 namespace HseBank.Facades;
@@ -7,11 +8,13 @@ public class BankAccountFacade : IBankAccountFacade
 {
     IBankAccountRepository  _repository;
     IBankAccountFactory _factory;
+    IOperationRepository _operationRepository;
 
-    public BankAccountFacade(IBankAccountRepository repository,  IBankAccountFactory factory)
+    public BankAccountFacade(IBankAccountRepository repository,  IBankAccountFactory factory,  IOperationRepository operationRepository)
     {
         _repository = repository;
         _factory = factory;
+        _operationRepository = operationRepository;
     }
     public void AddAccount(string name, int balance)
     {
@@ -24,6 +27,14 @@ public class BankAccountFacade : IBankAccountFacade
         if (!_repository.GetRep().Keys.Contains(id))
         {
             throw new ArgumentException("id не корректный");
+        }
+
+        foreach (var operation in _operationRepository.GetRep())
+        {
+            if (operation.Value.BankAccountId == id)
+            {
+                _operationRepository.Remove(operation.Key);
+            }
         }
         _repository.Remove(id);
     }

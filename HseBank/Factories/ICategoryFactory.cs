@@ -1,4 +1,5 @@
 using HseBank.TypeOperation;
+using HseBank.BaseClasses;
 namespace HseBank.Factories;
 
 public interface ICategoryFactory
