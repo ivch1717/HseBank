@@ -1,6 +1,6 @@
 namespace HseBank.Commands;
 
-public interface ICommand
+public interface ICommand<in TRequest>
 {
-    void Execute();
+    void Execute(TRequest request);
 }

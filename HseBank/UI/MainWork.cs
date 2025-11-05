@@ -1,12 +1,30 @@
-using Spectre.Console;
+using HseBank.Commands;
+using HseBank.Commands.AnalyticsComand;
 namespace HseBank.UI;
 
 public class MainWork
 {
-    public string[] Menu1 = ["Работа с аккаунтами", "Работа с категориями", "Работа с операцми", "аналитика"];
+    public string[] Menu1 = ["Работа с аккаунтами", "Работа с категориями", "Работа с операцми", "аналитика", "выход"];
     public string[] Menu2Account = ["Создать аккаунт", "Удалить аккаунт", "Изменить имя аккаунта"];
     public string[] Menu2Category = ["Создать категорию", "Удалить категорию", "Изменить имя категории"];
     public string[] Menu2Operation = ["Создать операцию", "Удалить операцию", "Изменить описание операции"];
+
+    public string[] MenuAnalytic =
+    [
+        "Подсчет разницы доходов и расходов за выбранный период",
+        "Группировка доходов и расходов по категориям", "топ 5 самых дорогих расходов за периуд"
+    ];
+    
+    private ICommandResolver _commandResolver;
+    private IRequestResolver _requestResolver;
+    private IInputOutput _console;
+
+    public MainWork(ICommandResolver commandResolver, IRequestResolver requestResolver, IInputOutput console)
+    {
+        _commandResolver = commandResolver;
+        _requestResolver = requestResolver;
+        _console = console;
+    }
     
     
     public void Run()
@@ -69,18 +87,22 @@ public class MainWork
     {
         while (true)
         {
-            switch (ReadingMenu(Menu1))
+            bool timed = _console.ReadString("Включить измерение времени выполнения? (y/n): ").Trim().ToLower() == "y";
+            switch (_console.ReadingMenu(Menu1))
             {
                 case 0:
-                    RunAccountMenu();
+                    RunAccountMenu(timed);
                     break;
                 case 1:
-                    RunCategoryMenu();
+                    RunCategoryMenu(timed);
                     break;
                 case 2:
-                    RunOperationMenu();
+                    RunOperationMenu(timed);
                     break;
                 case 3:
+                    RunAnalyticMenu(timed);
+                    break;
+                case 4:
                     Console.WriteLine("Выход из программы...");
                     Environment.Exit(0);
                     break;
@@ -88,115 +110,149 @@ public class MainWork
         }
     }
     
-    private void RunAccountMenu()
+    private void RunAnalyticMenu(bool timed)
+    {
+        switch (_console.ReadingMenu(MenuAnalytic))
+        {
+            case 0:
+                RunDifferenceProfitExpense(timed);
+                break;
+            case 1:
+                RunGroupingByCategory(timed);
+                break;
+            case 2:
+                RunTop5ExpensiveExpense(timed);
+                break;
+            case 3:
+                return;
+        }
+
+        Console.WriteLine("\nНажмите любую клавишу, чтобы вернуться...");
+        Console.ReadKey();
+    }
+    
+    private void RunDifferenceProfitExpense(bool timed)
+    {
+        Console.Clear();
+        Console.WriteLine("=== Подсчет разницы доходов и расходов ===");
+
+        var request = (PeriodRequest)_requestResolver.Resolve(nameof(PeriodRequest));
+        request.Start = _console.ReadDate("Введите дату начала периода (ГГГГ-ММ-ДД): ");
+        request.End = _console.ReadDate("Введите дату конца периода (ГГГГ-ММ-ДД): ");
+        request.Id = _console.ReadInt("Введите ID аккаунта: ");
+
+        var command = _commandResolver.ResolveWithResult<PeriodRequest>(nameof(DifferenceProfitExpense), timed);
+        var result = command.Execute(request);
+
+        Console.WriteLine($"\nРезультат: {result}");
+    }
+
+    private void RunGroupingByCategory(bool timed)
+    {
+        Console.Clear();
+        Console.WriteLine("=== Группировка доходов и расходов по категориям ===");
+
+        var id = _console.ReadInt("Введите ID аккаунта: ");
+        var command = _commandResolver.ResolveWithResult<int>(nameof(GroupingByCategory), timed);
+        var result = command.Execute(id);
+
+        Console.WriteLine($"\nРезультат:\n{result}");
+    }
+
+    private void RunTop5ExpensiveExpense(bool timed)
+    {
+        
+        Console.Clear();
+        Console.WriteLine("=== Топ 5 самых дорогих расходов ===");
+
+        var request = (PeriodRequest)_requestResolver.Resolve(nameof(PeriodRequest));
+        request.Start = _console.ReadDate("Введите дату начала периода (ГГГГ-ММ-ДД): ");
+        request.End = _console.ReadDate("Введите дату конца периода (ГГГГ-ММ-ДД): ");
+        request.Id = _console.ReadInt("Введите ID аккаунта: ");
+
+        var command = _commandResolver.ResolveWithResult<PeriodRequest>(nameof(Top5ExpensiveExpense), timed);
+        var result = command.Execute(request);
+
+        Console.WriteLine($"\nРезультат:\n{result}");
+    }
+    
+    private void RunAccountMenu(bool timed)
     {
         while (true)
         {
-            switch (ReadingMenu(Menu2Account))
+            switch (_console.ReadingMenu(Menu2Account))
             {
                 case 0:
-                    var name = ReadString("Введите имя аккаунта: ");
-                    var balance = ReadInt("Введите начальный баланс: ");
+                    var name = _console.ReadString("Введите имя аккаунта: ");
+                    var balance = _console.ReadInt("Введите начальный баланс: ");
                     Console.WriteLine($"✅ Аккаунт создан: {name}, баланс {balance}");
                     break;
 
                 case 1:
-                    var idToRemove = ReadInt("Введите ID аккаунта для удаления: ");
+                    var idToRemove = _console.ReadInt("Введите ID аккаунта для удаления: ");
                     Console.WriteLine($"✅ Аккаунт с id={idToRemove} удалён");
                     break;
 
                 case 2:
-                    var idToRename = ReadInt("Введите ID аккаунта: ");
-                    var newName = ReadString("Введите новое имя: ");
+                    var idToRename = _console.ReadInt("Введите ID аккаунта: ");
+                    var newName = _console.ReadString("Введите новое имя: ");
                     Console.WriteLine($"✅ Имя аккаунта с id={idToRename} изменено на '{newName}'");
                     break;
             }
         }
     }
     
-    private void RunCategoryMenu()
+    private void RunCategoryMenu(bool timed)
     {
         while (true)
         {
-            switch (ReadingMenu(Menu2Category))
+            switch (_console.ReadingMenu(Menu2Category))
             {
                 case 0:
-                    var categoryName = ReadString("Введите имя категории: ");
-                    var typeName = ReadString("Введите тип (Profit / Expense): ");
+                    var categoryName = _console.ReadString("Введите имя категории: ");
+                    var typeName = _console.ReadString("Введите тип (Profit / Expense): ");
                     Console.WriteLine($"✅ Категория '{categoryName}' с типом {typeName} создана");
                     break;
 
                 case 1:
-                    var categoryId = ReadInt("Введите ID категории для удаления: ");
+                    var categoryId = _console.ReadInt("Введите ID категории для удаления: ");
                     Console.WriteLine($"✅ Категория с id={categoryId} удалена");
                     break;
 
                 case 2:
-                    var catIdToRename = ReadInt("Введите ID категории: ");
-                    var catNewName = ReadString("Введите новое имя: ");
+                    var catIdToRename = _console.ReadInt("Введите ID категории: ");
+                    var catNewName = _console.ReadString("Введите новое имя: ");
                     Console.WriteLine($"✅ Имя категории с id={catIdToRename} изменено на '{catNewName}'");
                     break;
             }
         }
     }
     
-    private void RunOperationMenu()
+    private void RunOperationMenu(bool timed)
     {
         while (true)
         {
-            switch (ReadingMenu(Menu2Operation))
+            switch (_console.ReadingMenu(Menu2Operation))
             {
                 case 0:
-                    var accountId = ReadInt("Введите ID аккаунта: ");
-                    var categoryId = ReadInt("Введите ID категории: ");
-                    var amount = ReadInt("Введите сумму операции: ");
-                    var desc = ReadString("Введите описание (опционально): ");
+                    var accountId = _console.ReadInt("Введите ID аккаунта: ");
+                    var categoryId = _console.ReadInt("Введите ID категории: ");
+                    var amount = _console.ReadInt("Введите сумму операции: ");
+                    var desc = _console.ReadString("Введите описание (опционально): ");
                     Console.WriteLine($"✅ Операция создана: счёт={accountId}, категория={categoryId}, сумма={amount}, описание='{desc}'");
                     break;
 
                 case 1:
-                    var operationId = ReadInt("Введите ID операции для удаления: ");
+                    var operationId = _console.ReadInt("Введите ID операции для удаления: ");
                     Console.WriteLine($"✅ Операция с id={operationId} удалена");
                     break;
 
                 case 2:
-                    var opId = ReadInt("Введите ID операции: ");
-                    var newDesc = ReadString("Введите новое описание: ");
+                    var opId = _console.ReadInt("Введите ID операции: ");
+                    var newDesc = _console.ReadString("Введите новое описание: ");
                     Console.WriteLine($"✅ Описание операции с id={opId} изменено на '{newDesc}'");
                     break;
             }
         }
     }
-    
-    private int ReadingMenu(string[] data)
-    {
-        Console.Clear();
-        var selection = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-                .Title("Выберите пункт меню:")
-                .PageSize(10)
-                .MoreChoicesText("[grey](Используйте стрелки для навигации)[/]")
-                .AddChoices(data)
-        );
-
-        return Array.IndexOf(data, selection);
-    }
-
-    private int ReadInt(string mes = "")
-    {
-        Console.WriteLine(mes);
-        int result;
-        while (!int.TryParse(mes, out result))
-        {
-            Console.WriteLine("Ошибка, введите целое число");
-        }
-
-        return result;
-    }
-    
-    private string ReadString(string message)
-    {
-        Console.Write(message);
-        return Console.ReadLine() ?? string.Empty;
-    }
-}
+};

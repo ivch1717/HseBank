@@ -8,11 +8,11 @@ namespace HseBank.Facades;
 
 public class OperationFacade : IOperationFacade
 {
-    ICategoryRepository  _categoryRepository;
-    IBankAccountRepository   _accountRepository;
-    IOperationRepository _operationRepository;
-    IOperationFactory _factory;
-    IFactoryTypeResolver  _factoryTypeResolver;
+    private ICategoryRepository  _categoryRepository;
+    private IBankAccountRepository   _accountRepository;
+    private IOperationRepository _operationRepository;
+    private IOperationFactory _factory;
+    private IFactoryTypeResolver  _factoryTypeResolver;
 
     public OperationFacade(ICategoryRepository categoryRepository, IBankAccountRepository accountRepository,
         IOperationRepository operationRepository, IOperationFactory factory, IFactoryTypeResolver factoryTypeResolver)
