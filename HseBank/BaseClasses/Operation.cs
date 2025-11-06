@@ -1,7 +1,9 @@
 using HseBank.TypeOperation;
+using HseBank.Visitor;
+
 namespace HseBank.BaseClasses;
 
-public class Operation : ISubject
+public class Operation : ISubject, IExportable
 {
     public int Id { get; init; }
     public ITypeOperation Type { get; set; }
@@ -34,10 +36,12 @@ public class Operation : ISubject
     {
         return $"[Операция #{Id}] " +
                $"Тип: {Type.GetType().Name}, " +
-               $"Счёт: {BankAccountId}, " +
+               $"Id аккаута: {BankAccountId}, " +
                $"Сумма: {Amount}, " +
                $"Дата: {Date:dd.MM.yyyy HH:mm}, " +
-               $"Категория: {CategoryId}, " +
+               $"Id категории: {CategoryId}, " +
                $"Описание: {(string.IsNullOrWhiteSpace(Description) ? "—" : Description)}";
     }
+    
+    public void Accept(IExportVisitor visitor) => visitor.Visit(this);
 }

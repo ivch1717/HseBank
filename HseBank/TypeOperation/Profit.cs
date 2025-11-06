@@ -6,7 +6,7 @@ public class Profit : ITypeOperation
 
     public Profit()
     {
-        Name = "Доход";
+        Name = "Profit";
     }
     public int Count(int balance, int amount)
     {

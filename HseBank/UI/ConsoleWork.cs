@@ -4,12 +4,12 @@ namespace HseBank.UI;
 
 public class ConsoleWork : IInputOutput
 {
-    public int ReadingMenu(string[] data)
+    public int ReadingMenu(string[] data, string title)
     {
         Console.Clear();
         var selection = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
-                .Title("Выберите пункт меню:")
+                .Title(title)
                 .PageSize(10)
                 .MoreChoicesText("[grey](Используйте стрелки для навигации)[/]")
                 .AddChoices(data)

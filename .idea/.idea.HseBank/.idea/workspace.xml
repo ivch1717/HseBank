@@ -8,28 +8,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acb77281-ccc0-4223-b327-f0837b2b01fe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/AnalyticsComand/DifferenceProfitExpense.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/AnalyticsComand/GroupingByCategory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/AnalyticsComand/PeriodRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/AnalyticsComand/Top5ExpensiveExpense.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/CommandResolver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/ICommandResolver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/ICommandWithResult.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/IRequestResolver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/RequestResolver.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/TimedCommand.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/Commands/TimedCommandWithResult.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/UI/ConsoleWork.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/UI/IInputOutput.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/AccountRenameRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/AccountRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/AddAccount.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/ChangeAccountName.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/GetAllAccounts.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/RemoveAccount.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/CategoryCommand/AddCategory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/CategoryCommand/CategoryRenameRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/CategoryCommand/CategoryRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/CategoryCommand/ChangeCategoryName.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/CategoryCommand/GetAllCategories.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/CategoryCommand/RemoveCategor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/OperationCommand/AddOperation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/OperationCommand/ChangeOperationDescription.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/OperationCommand/GetAllOperations.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/OperationCommand/OperationChangeDescriptionRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/OperationCommand/OperationRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Commands/OperationCommand/RemoveOperation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Visitor/ExportToCsvVisitor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Visitor/IExportVisitor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HseBank/Visitor/IExportable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HseBank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HseBank/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HseBank/Commands/ICommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Commands/ICommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/BaseClasses/BankAccount.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/BaseClasses/BankAccount.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/BaseClasses/Category.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/BaseClasses/Category.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/BaseClasses/Operation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/BaseClasses/Operation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Commands/AnalyticsComand/DifferenceProfitExpense.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Commands/AnalyticsCommand/DifferenceProfitExpense.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Commands/AnalyticsComand/GroupingByCategory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Commands/AnalyticsCommand/GroupingByCategory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Commands/AnalyticsComand/PeriodRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Commands/AnalyticsCommand/PeriodRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Commands/AnalyticsComand/Top5ExpensiveExpense.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Commands/AnalyticsCommand/Top5ExpensiveExpense.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Commands/CommandResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Commands/CommandResolver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Commands/RequestResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Commands/RequestResolver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Facades/AnalyticsFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Facades/AnalyticsFacade.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Facades/BankAccountFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Facades/BankAccountFacade.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Facades/CategoryFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Facades/CategoryFacade.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Facades/IBankAccountFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Facades/IBankAccountFacade.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Facades/ICategoryFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Facades/ICategoryFacade.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Facades/IOperationFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Facades/IOperationFacade.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HseBank/Facades/OperationFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Facades/OperationFacade.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HseBank/HseBank.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/HseBank.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HseBank/InputOutput/IInputService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HseBank/InputOutput/IOutputService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HseBank/InputOutput/InputConsole.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HseBank/InputOutput/OutputConsole.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/HseBank/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/TypeOperation/Expense.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/TypeOperation/Expense.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/TypeOperation/Profit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/TypeOperation/Profit.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/UI/ConsoleWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/UI/ConsoleWork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/UI/IInputOutput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/UI/IInputOutput.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HseBank/UI/MainWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/UI/MainWork.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,13 +77,33 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Immediate Window" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e5d623ea960f2c3c9fda144954d339f8d4cd3dad6dd8bd4ab96093a010ab/Dictionary.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/BaseClasses/BankAccount.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/BaseClasses/Category.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/BaseClasses/IObserver.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/BaseClasses/ISubject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/BaseClasses/Operation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/AccountRenameRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/AccountRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/AddAccount.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/ChangeAccountName.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/GetAllAccounts.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/BankAccountCommand/RemoveAccount.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/CategoryCommand/AddCategory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/CategoryCommand/CategoryRenameRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/CategoryCommand/CategoryRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/CategoryCommand/ChangeCategoryName.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/CategoryCommand/GetAllCategories.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/CategoryCommand/RemoveCategor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/Commands/ICommand.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/Commands/IRequestResolver.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/OperationCommand/AddOperation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/OperationCommand/ChangeOperationDescription.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/OperationCommand/GetAllOperations.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/OperationCommand/OperationChangeDescriptionRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/OperationCommand/OperationRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Commands/OperationCommand/RemoveOperation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/Commands/RequestResolver.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/Commands/TimedCommand.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/Commands/TimedCommandWithResult.cs" root0="FORCE_HIGHLIGHTING" />
@@ -99,12 +140,18 @@
     <setting file="file://$PROJECT_DIR$/HseBank/UI/ConsoleWork.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/UI/IInputOutput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/UI/MainWork.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Visitor/ExportToCsvVisitor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Visitor/IExportVisitor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/HseBank/Visitor/IExportable.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="34scnqfPxhag66sT3Pv3cupf9YL" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -121,7 +168,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "HotReloadSettingsPage",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -160,7 +207,7 @@
       <workItem from="1762005891809" duration="1867000" />
       <workItem from="1762117024519" duration="39256000" />
       <workItem from="1762349915794" duration="179000" />
-      <workItem from="1762350383557" duration="6933000" />
+      <workItem from="1762350383557" duration="22972000" />
     </task>
     <task id="LOCAL-00001" summary="start">
       <option name="closed" value="true" />
@@ -194,7 +241,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762293073841</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="+ command">
+      <option name="closed" value="true" />
+      <created>1762360363457</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1762360363457</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,7 +263,8 @@
     <MESSAGE value="add 3 class" />
     <MESSAGE value="big commit" />
     <MESSAGE value="mega commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="mega commit" />
+    <MESSAGE value="+ command" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ command" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

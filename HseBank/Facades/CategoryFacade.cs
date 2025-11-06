@@ -20,7 +20,7 @@ public class CategoryFacade : ICategoryFacade
     public void AddCategory(string name, string typeName)
     {
         ITypeOperation type = _typeResolver.GetFactory(typeName).Create();
-        int id = _repository.GetRep().Keys.Max() + 1;
+        int id = _repository.IsEmpty() ? 0 : _repository.GetRep().Keys.Max() + 1;
         _repository.Add(id, _factory.Create(id, name, type));
     }
 
@@ -46,5 +46,19 @@ public class CategoryFacade : ICategoryFacade
             throw new ArgumentException("Имя категории не может быть пустым");
         }
         _repository.GetRep()[id].Name = name;
+    }
+    
+    public string GetAll()
+    {
+        if (_repository.IsEmpty())
+        {
+            return "Категорий  пока нет";
+        }
+        string result = "";
+        foreach (var acc in _repository.GetRep().Values)
+        {
+            result += acc.ToString() + '\n';
+        }
+        return result;
     }
 }

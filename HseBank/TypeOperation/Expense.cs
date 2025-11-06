@@ -6,7 +6,7 @@ public class Expense : ITypeOperation
 
     public Expense()
     {
-        Name = "Расход";
+        Name = "Expense";
     }
     public int Count(int balance, int amount)
     {

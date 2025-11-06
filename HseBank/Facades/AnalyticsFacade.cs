@@ -7,10 +7,12 @@ namespace HseBank.Facades;
 public class AnalyticsFacade : IAnalyticsFacade
 {
     public IOperationRepository _operationRepository;
+    public ICategoryRepository _categoryRepository;
 
-    public AnalyticsFacade(IOperationRepository operationRepository)
+    public AnalyticsFacade(IOperationRepository operationRepository,  ICategoryRepository categoryRepository)
     {
         _operationRepository = operationRepository;
+        _categoryRepository = categoryRepository;
     }
     public int DifferenceProfitExpense(DateTime startDate, DateTime endDate, int id)
     {
@@ -19,7 +21,7 @@ public class AnalyticsFacade : IAnalyticsFacade
         {
             if (op.BankAccountId == id && op.Date >= startDate && op.Date <= endDate)
             {
-                dif = op.Type.Count(dif, op.Amount);
+                dif += op.Type.Name == "Profit" ? op.Amount : -op.Amount;
             }
         }
 
@@ -29,25 +31,51 @@ public class AnalyticsFacade : IAnalyticsFacade
     public string GroupingByCategory(int id)
     {
         string res = "";
-        Dictionary<ITypeOperation, int>  operations = new Dictionary<ITypeOperation, int>();
+        var expenseGroups = new Dictionary<Category, int>();
+        var profitGroups = new Dictionary<Category, int>();
         foreach (var op in _operationRepository.GetRep().Values)
         {
-            operations[op.Type] += op.Amount;
-        }
-        res += "Expense:\n";
-        foreach (var op in operations)
-        {
-            if (op.Key.Name == "Expense")
+            if (op.BankAccountId != id) continue;
+            
+            var category = _categoryRepository.GetRep()[op.CategoryId];
+            
+            if (category.Type.Name == "Expense")
             {
-                res += $"{op.Key.Name} : {op.Value}\n";
+                if (!expenseGroups.ContainsKey(category))
+                    expenseGroups[category] = 0;
+                expenseGroups[category] += op.Amount;
+            }
+            else if (category.Type.Name == "Profit")
+            {
+                if (!profitGroups.ContainsKey(category))
+                    profitGroups[category] = 0;
+                profitGroups[category] += op.Amount;
             }
         }
-        res += "Profit:\n";
-        foreach (var op in operations)
+
+        res += "Расходы по категориям\n";
+        if (expenseGroups.Count == 0)
         {
-            if (op.Key.Name == "Profit")
+            res += "Нет расходов.\n";
+        }
+        else
+        {
+            foreach (var pair in expenseGroups)
             {
-                res += $"{op.Key.Name} : {op.Value}\n";
+                res += $"{pair.Key.Name}: {pair.Value}\n";
+            }
+        }
+
+        res += "\nДоходы по категориям\n";
+        if (profitGroups.Count == 0)
+        {
+            res += "Нет доходов.\n";
+        }
+        else
+        {
+            foreach (var pair in profitGroups)
+            {
+                res += $"{pair.Key.Name}: {pair.Value}\n";
             }
         }
         return res;
@@ -69,6 +97,11 @@ public class AnalyticsFacade : IAnalyticsFacade
         for (int i = 0; i < Math.Min(5, best.Count); i++)
         {
             res += best.ElementAt(i).Value.ToString() + '\n';
+        }
+
+        if (best.Count == 0)
+        {
+            res += "Нет подходящих операций";
         }
         return res;
     }

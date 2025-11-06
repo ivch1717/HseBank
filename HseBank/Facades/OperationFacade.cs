@@ -27,21 +27,21 @@ public class OperationFacade : IOperationFacade
     
     public void AddOperation(int bankAccountId, int amount, int categoryId, string description = "")
     {
-        int id = _operationRepository.GetRep().Keys.Max() + 1;
-        if (_accountRepository.GetRep().Keys.Contains(bankAccountId))
+        int id = _operationRepository.IsEmpty() ? 0 : _operationRepository.GetRep().Keys.Max() + 1;
+        if (!_accountRepository.GetRep().Keys.Contains(bankAccountId))
         {
             throw new ArgumentException("id аккаунта банка не корректный");
         }
         
-        if (_categoryRepository.GetRep().Keys.Contains(categoryId))
+        if (!_categoryRepository.GetRep().Keys.Contains(categoryId))
         {
             throw new ArgumentException("id категории не корректный");
         }
         DateTime date = DateTime.Now;
         IObserver observer = _accountRepository.GetRep()[bankAccountId];
+        observer.Update(_categoryRepository.GetRep()[categoryId].Type, amount);
         _operationRepository.Add(id, _factory.Create(id, 
             _categoryRepository.GetRep()[categoryId].Type, bankAccountId, amount, date, categoryId, observer, description));
-        _operationRepository.GetRep()[id].Notify();
     }
 
     public void RemoveOperation(int id)
@@ -62,5 +62,19 @@ public class OperationFacade : IOperationFacade
             throw new ArgumentException("id не корректный");
         }
         _operationRepository.GetRep()[id].Description = description;
+    }
+    
+    public string GetAll()
+    {
+        if (_operationRepository.IsEmpty())
+        {
+            return "Операций пока нет";
+        }
+        string result = "";
+        foreach (var acc in _operationRepository.GetRep().Values)
+        {
+            result += acc.ToString() + '\n';
+        }
+        return result;
     }
 }

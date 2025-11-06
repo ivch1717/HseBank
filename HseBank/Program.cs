@@ -6,6 +6,9 @@ using HseBank.Factories;
 using HseBank.Repository;
 using HseBank.service;
 using HseBank.TypeOperation;
+using HseBank.Commands.BankAccountCommand;
+using HseBank.Commands.CategoryCommand;
+using HseBank.Commands.OperationCommand;
 using HseBank.UI;
 
 namespace  HseBank
@@ -21,6 +24,21 @@ namespace  HseBank
             services.AddTransient<DifferenceProfitExpense>();
             services.AddTransient<GroupingByCategory>();
             services.AddTransient<Top5ExpensiveExpense>();
+            
+            services.AddTransient<AddAccount>();
+            services.AddTransient<RemoveAccount>();
+            services.AddTransient<ChangeAccountName>();
+            services.AddTransient<GetAllAccounts>();
+            
+            services.AddTransient<AddCategory>();
+            services.AddTransient<RemoveCategory>();
+            services.AddTransient<ChangeCategoryName>();
+            services.AddTransient<GetAllCategories>();
+            
+            services.AddTransient<AddOperation>();
+            services.AddTransient<RemoveOperation>();
+            services.AddTransient<ChangeOperationDescription>();
+            services.AddTransient<GetAllOperations>();
             
             services.AddSingleton<IBankAccountFacade, BankAccountFacade>();
             services.AddSingleton<ICategoryFacade, CategoryFacade>();

@@ -18,7 +18,7 @@ public class BankAccountFacade : IBankAccountFacade
     }
     public void AddAccount(string name, int balance)
     {
-        int id = _repository.GetRep().Keys.Max() + 1;
+        int id = _repository.IsEmpty() ? 0 :  _repository.GetRep().Keys.Max() + 1;
         _repository.Add(id, _factory.Create(id, name, balance));
     }
 
@@ -51,5 +51,19 @@ public class BankAccountFacade : IBankAccountFacade
             throw new ArgumentException("Имя аккаунта не может быть пустым");
         }
         _repository.GetRep()[id].Name = name;
+    }
+
+    public string GetAll()
+    {
+        if (_repository.IsEmpty())
+        {
+            return "Банковских аккаунтов пока нет";
+        }
+        string result = "";
+        foreach (var acc in _repository.GetRep().Values)
+        {
+            result += acc.ToString() + '\n';
+        }
+        return result;
     }
 }
