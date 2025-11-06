@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 0,
+    "Type": "\u0414\u043E\u0445\u043E\u0434",
+    "BankAccountId": 0,
+    "Amount": 100,
+    "Date": "2025-11-06 22:43",
+    "CategoryId": 0,
+    "Description": "\u0437\u0430\u043B\u0435\u0442\u0435\u043B\u0430"
+  },
+  {
+    "Id": 1,
+    "Type": "\u0414\u043E\u0445\u043E\u0434",
+    "BankAccountId": 0,
+    "Amount": 100,
+    "Date": "2025-11-06 22:44",
+    "CategoryId": 0,
+    "Description": "\u0437\u0430\u043B\u0435\u0442\u0435\u043B\u0430"
+  }
+]

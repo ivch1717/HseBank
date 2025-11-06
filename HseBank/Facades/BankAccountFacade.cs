@@ -1,3 +1,4 @@
+using HseBank.Export;
 using HseBank.Factories;
 using HseBank.Repository;
 using HseBank.service;
@@ -9,12 +10,15 @@ public class BankAccountFacade : IBankAccountFacade
     IBankAccountRepository  _repository;
     IBankAccountFactory _factory;
     IOperationRepository _operationRepository;
+    IExportResolver _exportResolver;
 
-    public BankAccountFacade(IBankAccountRepository repository,  IBankAccountFactory factory,  IOperationRepository operationRepository)
+    public BankAccountFacade(IBankAccountRepository repository,  IBankAccountFactory factory,  
+        IOperationRepository operationRepository, IExportResolver exportResolver)
     {
         _repository = repository;
         _factory = factory;
         _operationRepository = operationRepository;
+        _exportResolver = exportResolver;
     }
     public void AddAccount(string name, int balance)
     {
@@ -51,6 +55,30 @@ public class BankAccountFacade : IBankAccountFacade
             throw new ArgumentException("Имя аккаунта не может быть пустым");
         }
         _repository.GetRep()[id].Name = name;
+    }
+
+    public void ExportAccount(string filename)
+    {
+        if (!filename.Contains("."))
+        {
+            throw new ArgumentException("не праивльное название файла");
+        }
+
+        string expansion = filename.Substring(filename.LastIndexOf('.') + 1);
+        IExportVisitor visitor = _exportResolver.GetVisitor(expansion);
+        foreach (var acc in _repository.GetRep().Values)
+        {
+            acc.Accept(visitor);
+        }
+
+        string res = visitor.GetResult();
+        string projectRoot = Directory.GetParent(AppContext.BaseDirectory)
+                                 .Parent?.Parent?.Parent?.FullName 
+                             ?? AppContext.BaseDirectory;
+        
+        string dataFolder = Path.Combine(projectRoot, "Data");
+        string filePath = Path.Combine(dataFolder, filename);
+        File.WriteAllText(filePath, res);
     }
 
     public string GetAll()

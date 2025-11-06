@@ -1,0 +1,7 @@
+- id: 0
+  type: Доход
+  bankAccountId: 0
+  amount: 100
+  date: 2025-11-06 22:43
+  categoryId: 0
+  description: залетела

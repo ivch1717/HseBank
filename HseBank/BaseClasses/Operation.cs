@@ -1,5 +1,5 @@
 using HseBank.TypeOperation;
-using HseBank.Visitor;
+using HseBank.Export;
 
 namespace HseBank.BaseClasses;
 
@@ -35,7 +35,7 @@ public class Operation : ISubject, IExportable
     public override string ToString()
     {
         return $"[Операция #{Id}] " +
-               $"Тип: {Type.GetType().Name}, " +
+               $"Тип: {Type.RussianName}, " +
                $"Id аккаута: {BankAccountId}, " +
                $"Сумма: {Amount}, " +
                $"Дата: {Date:dd.MM.yyyy HH:mm}, " +

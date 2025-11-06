@@ -9,7 +9,11 @@ using HseBank.TypeOperation;
 using HseBank.Commands.BankAccountCommand;
 using HseBank.Commands.CategoryCommand;
 using HseBank.Commands.OperationCommand;
+using HseBank.Commands.ExportCommand;
+using HseBank.Commands.ImportCommand;
 using HseBank.UI;
+using HseBank.Export;
+using HseBank.Import;
 
 namespace  HseBank
 {
@@ -40,6 +44,22 @@ namespace  HseBank
             services.AddTransient<ChangeOperationDescription>();
             services.AddTransient<GetAllOperations>();
             
+            services.AddTransient<ExportAccount>();
+            services.AddTransient<ExportCategory>();
+            services.AddTransient<ExportOperation>();
+            
+            services.AddTransient<ImportAccountsFromCsv>();
+            services.AddTransient<ImportAccountsFromJson>();
+            services.AddTransient<ImportAccountsFromYaml>();
+            
+            services.AddTransient<ImportOperationsFromCsv>();
+            services.AddTransient<ImportOperationsFromJson>();
+            services.AddTransient<ImportOperationsFromYaml>();
+
+            services.AddTransient<ImportCategoriesFromCsv>();
+            services.AddTransient<ImportCategoriesFromJson>();
+            services.AddTransient<ImportCategoriesFromYaml>();
+            
             services.AddSingleton<IBankAccountFacade, BankAccountFacade>();
             services.AddSingleton<ICategoryFacade, CategoryFacade>();
             services.AddSingleton<IOperationFacade, OperationFacade>();
@@ -54,6 +74,9 @@ namespace  HseBank
             services.AddSingleton<IOperationRepository, OperationRepository>();
             
             services.AddSingleton<IFactoryTypeResolver, FactoryTypeResolver>();
+            
+            services.AddSingleton<IExportResolver, ExportResolver>();
+            services.AddSingleton<IImportResolver, ImportResolver>();
 
             services.AddSingleton<IInputOutput, ConsoleWork>();
             services.AddSingleton<MainWork>();

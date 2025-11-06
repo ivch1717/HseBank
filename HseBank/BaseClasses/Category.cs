@@ -1,5 +1,5 @@
 using HseBank.TypeOperation;
-using HseBank.Visitor;
+using HseBank.Export;
 
 namespace HseBank.BaseClasses;
 
@@ -18,7 +18,7 @@ public class Category : IExportable
     
     public override string ToString()
     {
-        return $"[{Id}] Категория: {Name} - Тип операции: {Type.Name}";
+        return $"[{Id}] Категория: {Name} - Тип операции: {Type.RussianName}";
     }
     
     public void Accept(IExportVisitor visitor) => visitor.Visit(this);

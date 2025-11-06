@@ -1,4 +1,4 @@
-namespace HseBank.Visitor;
+namespace HseBank.Export;
 
 public interface IExportable
 {

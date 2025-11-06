@@ -3,14 +3,16 @@ using HseBank.Commands.AnalyticsComand;
 using HseBank.Commands.BankAccountCommand;
 using HseBank.Commands.CategoryCommand;
 using HseBank.Commands.OperationCommand;
+using HseBank.Commands.ExportCommand;
+using HseBank.Commands.ImportCommand;
 namespace HseBank.UI;
 
 public class MainWork
 {
     public string[] Menu1 = ["Работа с аккаунтами", "Работа с категориями", "Работа с операцми", "аналитика", "выход"];
-    public string[] Menu2Account = ["Создать аккаунт", "Удалить аккаунт", "Изменить имя аккаунта", "Вывести все аккаунты"];
-    public string[] Menu2Category = ["Создать категорию", "Удалить категорию", "Изменить имя категории", "Вывести все категории"];
-    public string[] Menu2Operation = ["Создать операцию", "Удалить операцию", "Изменить описание операции", "вывести все операции"];
+    public string[] Menu2Account = ["Создать аккаунт", "Удалить аккаунт", "Изменить имя аккаунта", "Вывести все аккаунты", "экспорт данных в файл", "импорт данных из файлов"];
+    public string[] Menu2Category = ["Создать категорию", "Удалить категорию", "Изменить имя категории", "Вывести все категории", "экспорт данных в файл", "импорт данных из файлов"];
+    public string[] Menu2Operation = ["Создать операцию", "Удалить операцию", "Изменить описание операции", "вывести все операции", "экспорт данных в файл", "импорт данных из файлов"];
 
     public string[] Menu2Analytic =
     [
@@ -208,7 +210,47 @@ public class MainWork
                 var getAllAcc = _commandResolver.ResolveWithResult<object>(nameof(GetAllAccounts), timed);
                 Console.WriteLine(getAllAcc.Execute(null));
                 break;
+            case 4:
+                var exportAcc =  _commandResolver.Resolve<string>(nameof(ExportAccount), timed);
+                string fileName = _console.ReadString("Введите название файла куда импортировать, " +
+                                                      "доступный формат: json, csv, yaml (файл будет сохранён в папку data) : ");
+                exportAcc.Execute(fileName);
+                Console.WriteLine("Данные успешно экспортированы");
+                break;
+            case 5:
+                RunImportAccount(timed);
+                break;
         }
+    }
+
+    private void RunImportAccount(bool timed)
+    {
+        string filepath = _console.ReadString("Введите полный путь к файлу, доступные форматы: " +
+                                              "csv, json, yaml \n(некорректные данные будут просто пропускаться, " +
+                                              "а так же id будет сами высчитываться в целях безопасности," +
+                                              "эти данные могут быть, могут не быть, они никак не влияют) : ");
+        if (!filepath.Contains("."))
+        {
+            Console.WriteLine("неправильное название файла");
+            return;
+        }
+        string expansion = filepath.Substring(filepath.LastIndexOf('.') + 1);
+        switch (expansion)
+        {
+            case "csv":
+                var importAccCsv =  _commandResolver.Resolve<string>(nameof(ImportAccountsFromCsv), timed);
+                importAccCsv.Execute(filepath);
+                break;
+            case "json":
+                var exportCatJson =  _commandResolver.Resolve<string>(nameof(ImportAccountsFromJson), timed);
+                exportCatJson.Execute(filepath);
+                break;
+            case "yaml":
+                var importAccYaml =  _commandResolver.Resolve<string>(nameof(ImportAccountsFromYaml), timed);
+                importAccYaml.Execute(filepath);
+                break;
+        }
+        Console.WriteLine("Данные успешно импортированы");
     }
     
     private void RunCategoryMenu(bool timed)
@@ -244,7 +286,47 @@ public class MainWork
                 var getAllCat = _commandResolver.ResolveWithResult<object>(nameof(GetAllCategories), timed);
                 Console.WriteLine(getAllCat.Execute(null));
                 break;
+            case 4:
+                var exportCat =  _commandResolver.Resolve<string>(nameof(ExportCategory), timed);
+                string fileName = _console.ReadString("Введите название файла куда импортировать, " +
+                                                      "доступный формат: json, csv, yaml (файл будет сохранён в папку data) : ");
+                exportCat.Execute(fileName);
+                Console.WriteLine("Данные успешно экспортированы");
+                break;
+            case 5:
+                RunImportCategory(timed);
+                break;
         }
+    }
+    
+    private void RunImportCategory(bool timed)
+    {
+        string filepath = _console.ReadString("Введите полный путь к файлу, доступные форматы: " +
+                                              "csv, json, yaml \n(некорректные данные будут просто пропускаться, " +
+                                              "а так же id будет сами высчитываться в целях безопасности," +
+                                              "эти данные могут быть, могут не быть, они никак не влияют) : ");
+        if (!filepath.Contains("."))
+        {
+            Console.WriteLine("неправильное название файла");
+            return;
+        }
+        string expansion = filepath.Substring(filepath.LastIndexOf('.') + 1);
+        switch (expansion)
+        {
+            case "csv":
+                var importAccCsv =  _commandResolver.Resolve<string>(nameof(ImportCategoriesFromCsv), timed);
+                importAccCsv.Execute(filepath);
+                break;
+            case "json":
+                var exportCatJson =  _commandResolver.Resolve<string>(nameof(ImportCategoriesFromJson), timed);
+                exportCatJson.Execute(filepath);
+                break;
+            case "yaml":
+                var importAccYaml =  _commandResolver.Resolve<string>(nameof(ImportCategoriesFromYaml), timed);
+                importAccYaml.Execute(filepath);
+                break;
+        }
+        Console.WriteLine("Данные успешно импортированы");
     }
     
     private void RunOperationMenu(bool timed)
@@ -286,6 +368,46 @@ public class MainWork
                 var getAllOp = _commandResolver.ResolveWithResult<object>(nameof(GetAllOperations), timed);
                 Console.WriteLine(getAllOp.Execute(null));
                 break;
+            case 4:
+                var exportOp =  _commandResolver.Resolve<string>(nameof(ExportOperation), timed);
+                string fileName = _console.ReadString("Введите название файла куда импортировать, " +
+                                                      "доступный формат: json, csv, yaml (файл будет сохранён в папку data) : ");
+                exportOp.Execute(fileName);
+                Console.WriteLine("Данные успешно экспортированы");
+                break;
+            case 5:
+                RunImportOperation(timed);
+                break;
         }
+    }
+    
+    private void RunImportOperation(bool timed)
+    {
+        string filepath = _console.ReadString("Введите полный путь к файлу, доступные форматы: " +
+                                              "csv, json, yaml \n(некорректные данные будут просто пропускаться, " +
+                                              "а так же id, дата операции и тип операции будут сами высчитываться в целях безопасности," +
+                                              "эти данные могут быть, могут не быть, они никак не влияют) : ");
+        if (!filepath.Contains("."))
+        {
+            Console.WriteLine("неправильное название файла");
+            return;
+        }
+        string expansion = filepath.Substring(filepath.LastIndexOf('.') + 1);
+        switch (expansion)
+        {
+            case "csv":
+                var importAccCsv =  _commandResolver.Resolve<string>(nameof(ImportOperationsFromCsv), timed);
+                importAccCsv.Execute(filepath);
+                break;
+            case "json":
+                var exportCatJson =  _commandResolver.Resolve<string>(nameof(ImportOperationsFromJson), timed);
+                exportCatJson.Execute(filepath);
+                break;
+            case "yaml":
+                var importAccYaml =  _commandResolver.Resolve<string>(nameof(ImportOperationsFromYaml), timed);
+                importAccYaml.Execute(filepath);
+                break;
+        }
+        Console.WriteLine("Данные успешно импортированы");
     }
 };
