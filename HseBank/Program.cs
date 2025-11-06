@@ -80,6 +80,11 @@ namespace  HseBank
 
             services.AddSingleton<IInputOutput, ConsoleWork>();
             services.AddSingleton<MainWork>();
+
+            services.AddSingleton<MenuAccount>();
+            services.AddSingleton<MenuCategory>();
+            services.AddSingleton<MenuOperation>();
+            services.AddSingleton<MenuAnalytics>();
             var serviceProvider = services.BuildServiceProvider();
             
             var app = serviceProvider.GetRequiredService<MainWork>();
