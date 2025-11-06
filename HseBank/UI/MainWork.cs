@@ -73,6 +73,26 @@ public class MainWork
             {
                 Console.WriteLine($"Ошибка переполнения: число слишком большое или маленькое");
             }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine($"Ошибка: файл не найден.\nПуть: {ex.FileName}");
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                Console.WriteLine($"Ошибка: указанная директория не найдена.\n{ex.Message}");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("Ошибка доступа: недостаточно прав для чтения или записи файла.");
+            }
+            catch (PathTooLongException)
+            {
+                Console.WriteLine("Ошибка: путь к файлу слишком длинный.");
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"Ошибка ввода-вывода: {ex.Message}");
+            }
             Console.WriteLine("\nНажмите любую клавишу, чтобы вернуться...");
             Console.ReadKey();
         }

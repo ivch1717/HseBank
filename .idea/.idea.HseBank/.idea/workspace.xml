@@ -8,11 +8,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acb77281-ccc0-4223-b327-f0837b2b01fe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/HseBank/UI/MenuAccount.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/UI/MenuAnalytics.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/UI/MenuCategory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/HseBank/UI/MenuOperation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HseBank/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HseBank/UI/MainWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/UI/MainWork.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -128,6 +123,7 @@
     <setting file="file://$PROJECT_DIR$/HseBank/UI/ConsoleWork.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/UI/IInputOutput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/UI/MainWork.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/ivch1/RiderProjects/HseBank/HseBank/UI/MainWork.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/UI/MenuAccount.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/UI/MenuAnalytics.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/HseBank/UI/MenuCategory.cs" root0="FORCE_HIGHLIGHTING" />
@@ -198,7 +194,7 @@
       <workItem from="1762117024519" duration="39256000" />
       <workItem from="1762349915794" duration="179000" />
       <workItem from="1762350383557" duration="23097000" />
-      <workItem from="1762429023661" duration="23215000" />
+      <workItem from="1762429023661" duration="25365000" />
     </task>
     <task id="LOCAL-00001" summary="start">
       <option name="closed" value="true" />
@@ -256,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762459088377</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="final">
+      <option name="closed" value="true" />
+      <created>1762460816602</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1762460816602</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +277,8 @@
     <MESSAGE value="+ command" />
     <MESSAGE value="basic functionality" />
     <MESSAGE value="small fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="small fixed" />
+    <MESSAGE value="final" />
+    <option name="LAST_COMMIT_MESSAGE" value="final" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
