@@ -52,7 +52,7 @@ public class OperationFacade : IOperationFacade
         {
             throw new ArgumentException("id не корректный");
         }
-        _operationRepository.GetRep()[id].Type = _factoryTypeResolver.GetFactory(_operationRepository.GetRep()[id].Type.Name, true).Create();
+        _operationRepository.GetRep()[id].Type = _factoryTypeResolver.GetFactory(_operationRepository.GetRep()[id].Type.RussianName, true).Create();
         _operationRepository.GetRep()[id].Notify();
         _operationRepository.Remove(id);
     }
