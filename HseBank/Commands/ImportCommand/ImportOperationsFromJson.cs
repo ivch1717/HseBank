@@ -22,24 +22,30 @@ public class ImportOperationsFromJson : ICommand<string>
         {
             try
             {
-                if (!record.ContainsKey("BankAccountId") || 
-                    !record.ContainsKey("CategoryId") || 
+                if (!record.ContainsKey("BankAccountId") ||
+                    !record.ContainsKey("CategoryId") ||
                     !record.ContainsKey("Amount"))
                     continue;
-
+                
                 if (!int.TryParse(record["BankAccountId"]?.ToString(), out int accountId))
                     continue;
                 if (!int.TryParse(record["CategoryId"]?.ToString(), out int categoryId))
                     continue;
                 if (!int.TryParse(record["Amount"]?.ToString(), out int amount))
                     continue;
-
-                string description = record.ContainsKey("Description") ? record["Description"]?.ToString() ?? "" : "";
-                _facade.AddOperation(accountId, amount, categoryId, description);
+                
+                string description = record.ContainsKey("Description") 
+                    ? record["Description"]?.ToString()?.Trim() ?? "" 
+                    : "";
+                
+                if (!record.ContainsKey("Date") || !DateTime.TryParse(record["Date"]?.ToString(), out DateTime date))
+                    continue;
+                
+                _facade.AddOperation(accountId, amount, categoryId, description, date);
             }
             catch (ArgumentException)
             {
-               continue;
+                continue;
             }
         }
     }

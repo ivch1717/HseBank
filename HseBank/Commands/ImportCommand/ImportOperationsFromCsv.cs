@@ -19,17 +19,18 @@ public class ImportOperationsFromCsv : ICommand<string>
         var rows = _importResolver.GetImporter<string[]>("csv").Import(filepath);
         if (rows == null || rows.Count == 0)
             return;
-        
+
         var headers = rows[0].Select(h => h.Trim()).ToList();
-        
+
         int bankAccIndex = headers.FindIndex(h => h.Equals("BankAccountId", StringComparison.OrdinalIgnoreCase));
         int catIndex     = headers.FindIndex(h => h.Equals("CategoryId", StringComparison.OrdinalIgnoreCase));
         int amountIndex  = headers.FindIndex(h => h.Equals("Amount", StringComparison.OrdinalIgnoreCase));
         int descIndex    = headers.FindIndex(h => h.Equals("Description", StringComparison.OrdinalIgnoreCase));
+        int dateIndex    = headers.FindIndex(h => h.Equals("Date", StringComparison.OrdinalIgnoreCase));
         
-        if (bankAccIndex == -1 || catIndex == -1 || amountIndex == -1)
-            return;
-        
+        if (bankAccIndex == -1 || catIndex == -1 || amountIndex == -1 || dateIndex == -1)
+            throw new ArgumentException("Некорректные данные в файле");
+
         for (int i = 1; i < rows.Count; i++)
         {
             try
@@ -37,31 +38,33 @@ public class ImportOperationsFromCsv : ICommand<string>
                 var row = rows[i];
                 if (row.Length == 0)
                     continue;
-            
-                if (bankAccIndex >= row.Length || catIndex >= row.Length || amountIndex >= row.Length)
+
+                if (bankAccIndex >= row.Length || catIndex >= row.Length || amountIndex >= row.Length || dateIndex >= row.Length)
                     continue;
 
                 string bankAccStr = row[bankAccIndex].Trim();
                 string catStr = row[catIndex].Trim();
                 string amountStr = row[amountIndex].Trim();
+                string dateStr = row[dateIndex].Trim();
                 string description = (descIndex != -1 && descIndex < row.Length)
                     ? row[descIndex].Trim()
                     : "";
-            
+
                 if (!int.TryParse(bankAccStr, out int bankId))
                     continue;
                 if (!int.TryParse(catStr, out int categoryId))
                     continue;
                 if (!int.TryParse(amountStr, out int amount))
                     continue;
-            
-                _facade.AddOperation(bankId, amount, categoryId, description);
+                if (!DateTime.TryParse(dateStr, out DateTime date))
+                    continue;
+                
+                _facade.AddOperation(bankId, amount, categoryId, description, date);
             }
             catch (ArgumentException)
             {
-               continue;
+                continue;
             }
-            
         }
     }
 }

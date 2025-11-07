@@ -9,6 +9,10 @@
   <component name="ChangeListManager">
     <list default="true" id="acb77281-ccc0-4223-b327-f0837b2b01fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HseBank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HseBank/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Commands/ImportCommand/ImportOperationsFromCsv.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Commands/ImportCommand/ImportOperationsFromCsv.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Commands/ImportCommand/ImportOperationsFromJson.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Commands/ImportCommand/ImportOperationsFromJson.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Commands/ImportCommand/ImportOperationsFromYaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Commands/ImportCommand/ImportOperationsFromYaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HseBank/Facades/IOperationFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Facades/IOperationFacade.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HseBank/Facades/OperationFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HseBank/Facades/OperationFacade.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -196,7 +200,7 @@
       <workItem from="1762349915794" duration="179000" />
       <workItem from="1762350383557" duration="23097000" />
       <workItem from="1762429023661" duration="26004000" />
-      <workItem from="1762519678453" duration="1749000" />
+      <workItem from="1762519678453" duration="3550000" />
     </task>
     <task id="LOCAL-00001" summary="start">
       <option name="closed" value="true" />
@@ -270,7 +274,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762462995879</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fixed bag">
+      <option name="closed" value="true" />
+      <created>1762521469708</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1762521469708</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,7 +312,8 @@
     <MESSAGE value="small fixed" />
     <MESSAGE value="final" />
     <MESSAGE value="-" />
-    <option name="LAST_COMMIT_MESSAGE" value="-" />
+    <MESSAGE value="fixed bag" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bag" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -22,28 +22,33 @@ public class ImportOperationsFromYaml : ICommand<string>
         {
             try
             {
-                string? accKey = record.Keys.FirstOrDefault(k => k.Equals("BankAccountId", StringComparison.OrdinalIgnoreCase));
-                string? catKey = record.Keys.FirstOrDefault(k => k.Equals("CategoryId", StringComparison.OrdinalIgnoreCase));
-                string? amtKey = record.Keys.FirstOrDefault(k => k.Equals("Amount", StringComparison.OrdinalIgnoreCase));
+                string? accKey  = record.Keys.FirstOrDefault(k => k.Equals("BankAccountId", StringComparison.OrdinalIgnoreCase));
+                string? catKey  = record.Keys.FirstOrDefault(k => k.Equals("CategoryId", StringComparison.OrdinalIgnoreCase));
+                string? amtKey  = record.Keys.FirstOrDefault(k => k.Equals("Amount", StringComparison.OrdinalIgnoreCase));
                 string? descKey = record.Keys.FirstOrDefault(k => k.Equals("Description", StringComparison.OrdinalIgnoreCase));
-
-                if (accKey == null || catKey == null || amtKey == null)
+                string? dateKey = record.Keys.FirstOrDefault(k => k.Equals("Date", StringComparison.OrdinalIgnoreCase));
+                
+                if (accKey == null || catKey == null || amtKey == null || dateKey == null)
                     continue;
-
+                
                 if (!int.TryParse(record[accKey]?.ToString(), out int accountId))
                     continue;
                 if (!int.TryParse(record[catKey]?.ToString(), out int categoryId))
                     continue;
                 if (!int.TryParse(record[amtKey]?.ToString(), out int amount))
                     continue;
+                if (!DateTime.TryParse(record[dateKey]?.ToString(), out DateTime date))
+                    continue;
 
-                string description = descKey != null ? record[descKey]?.ToString() ?? "" : "";
-
-                _facade.AddOperation(accountId, amount, categoryId, description);
+                string description = descKey != null 
+                    ? record[descKey]?.ToString()?.Trim() ?? "" 
+                    : "";
+                
+                _facade.AddOperation(accountId, amount, categoryId, description, date);
             }
             catch (ArgumentException)
             {
-               continue;
+                continue;
             }
         }
     }

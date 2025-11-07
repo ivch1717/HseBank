@@ -27,7 +27,7 @@ public class OperationFacade : IOperationFacade
         _exportResolver = exportResolver;
     }
     
-    public void AddOperation(int bankAccountId, int amount, int categoryId, string description = "")
+    public void AddOperation(int bankAccountId, int amount, int categoryId, string description, DateTime date)
     {
         int id = _operationRepository.IsEmpty() ? 0 : _operationRepository.GetRep().Keys.Max() + 1;
         if (!_accountRepository.GetRep().Keys.Contains(bankAccountId))
@@ -39,7 +39,11 @@ public class OperationFacade : IOperationFacade
         {
             throw new ArgumentException("id категории не корректный");
         }
-        DateTime date = DateTime.Now;
+
+        if (date == default)
+        {
+            date = DateTime.Now;
+        }
         IObserver observer = _accountRepository.GetRep()[bankAccountId];
         observer.Update(_categoryRepository.GetRep()[categoryId].Type, amount);
         _operationRepository.Add(id, _factory.Create(id, 
